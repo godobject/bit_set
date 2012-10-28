@@ -36,10 +36,6 @@ module GodObject
       end
     end
 
-    def digits
-      @configuration.digits
-    end
-
     def state
       state = {}
 
@@ -154,6 +150,10 @@ module GodObject
     end
 
     protected
+
+    def digits
+      @configuration.digits
+    end
 
     def binary_position(digit)
       @configuration.binary_position(digit)

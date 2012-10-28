@@ -102,11 +102,13 @@ module GodObject
          digit
        end
 
-       def eql?(other)
-         @digits == other.digits && other.kind_of?(self.class)
+       def ==(other)
+         digits == other.digits
        end
 
-       alias == eql?
+       def eql?(other)
+         self == other && other.kind_of?(self.class)
+       end
 
        def hash
          @digits.hash
