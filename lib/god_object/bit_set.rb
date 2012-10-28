@@ -16,7 +16,7 @@ module GodObject
       case
       when state.respond_to?(:to_int)
         @state = state.to_int
-      when state[0].respond_to?(:to_int)
+      when state.respond_to?(:[]) && state[0].respond_to?(:to_int)
         @state = state[0].to_int
       else
         state, invalid_tokens = state.partition do |token|
@@ -76,21 +76,36 @@ module GodObject
       @configuration.new(@state, @configuration)
     end
 
+    def +(other)
+      new_digits = enabled_digits + [other.to_sym]
+
+      self.class.new(new_digits, @configuration)
+    end
+
+    def -(other)
+      new_digits = enabled_digits - [other.to_sym]
+
+      self.class.new(new_digits, @configuration)
+    end
+
     def &(other)
-      @configuration.new(
-        @state & (other.kind_of?(self.class) ? other.to_i : other.to_int)
+      self.class.new(
+        @state & (other.kind_of?(self.class) ? other.to_i : other.to_int),
+        @configuration
       )
     end
 
     def |(other)
-      @configuration.new(
-        @state | (other.kind_of?(self.class) ? other.to_i : other.to_int)
+      self.class.new(
+        @state | (other.kind_of?(self.class) ? other.to_i : other.to_int),
+        @configuration
       )
     end
 
     def ^(other)
-      @configuration.new(
-        @state ^ (other.kind_of?(self.class) ? other.to_i : other.to_int)
+      self.class.new(
+        @state ^ (other.kind_of?(self.class) ? other.to_i : other.to_int),
+        @configuration
       )
     end
 
