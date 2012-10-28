@@ -172,7 +172,7 @@ module GodObject
     end
 
     def method_missing(name, *arguments)
-      result = /^(?<digit>[A-Za-z]+)\??$/.match(name)
+      result = /^(?<digit>[A-Za-z\-_]+)\??$/.match(name)
 
       if result && arguments.empty? && find_digit(result[:digit])
         self[result[:digit]]
