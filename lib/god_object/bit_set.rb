@@ -1,4 +1,5 @@
 require 'set'
+require 'forwardable'
 
 require 'god_object/bit_set/version'
 require 'god_object/bit_set/configuration'
@@ -8,16 +9,19 @@ module GodObject
   class BitSet
     STRING_FORMAT = Set[:long, :short].freeze
 
-    attr_reader :configuration
+    attr_reader :configuration, :state
+
+    extend Forwardable
+    include Comparable
 
     def initialize(state = 0, configuration)
       @configuration = Configuration.build(configuration)
 
+      create_attribute_readers
+
       case
       when state.respond_to?(:to_int)
         @state = state.to_int
-      when state.respond_to?(:[]) && state[0].respond_to?(:to_int)
-        @state = state[0].to_int
       else
         state, invalid_tokens = state.partition do |token|
           digits.include?(token)
@@ -36,7 +40,7 @@ module GodObject
       end
     end
 
-    def state
+    def attributes
       state = {}
 
       digits.each do |digit|
@@ -73,56 +77,57 @@ module GodObject
     end
 
     def invert
-      @configuration.new(@state, @configuration)
+      @configuration.new(@configuration.max - @state)
     end
 
     def +(other)
-      new_digits = enabled_digits + [other.to_sym]
+      other = other.enabled_digits if other.respond_to?(:enabled_digits)
 
-      self.class.new(new_digits, @configuration)
+      @configuration.new(enabled_digits + other)
     end
 
     def -(other)
-      new_digits = enabled_digits - [other.to_sym]
+      other = other.enabled_digits if other.respond_to?(:enabled_digits)
 
-      self.class.new(new_digits, @configuration)
+      @configuration.new(enabled_digits - other)
     end
 
-    def &(other)
-      self.class.new(
-        @state & (other.kind_of?(self.class) ? other.to_i : other.to_int),
-        @configuration
-      )
+    def union(other)
+      other = other.state if other.respond_to?(:state)
+
+      @configuration.new(@state | other)
     end
 
-    def |(other)
-      self.class.new(
-        @state | (other.kind_of?(self.class) ? other.to_i : other.to_int),
-        @configuration
-      )
+    alias | union
+
+    def intersection(other)
+      other = other.state if other.respond_to?(:state)
+
+      @configuration.new(@state & other)
     end
 
-    def ^(other)
-      self.class.new(
-        @state ^ (other.kind_of?(self.class) ? other.to_i : other.to_int),
-        @configuration
-      )
+    alias & intersection
+
+    def symmetric_difference(other)
+      other = other.state if other.respond_to?(:state)
+
+      @configuration.new(@state ^ other)
     end
 
-    def ==(other)
-      to_i == other.to_i && @configuration == other.configuration
+    alias ^ symmetric_difference
+
+    def <=>(other)
+      if @configuration == other.configuration
+        @state <=> other.state
+      else
+        nil
+      end
     rescue NoMethodError
-      false
+      nil
     end
 
     def eql?(other)
       self == other && other.kind_of?(self.class)
-    rescue NoMethodError
-      false
-    end
-
-    def <=>(other)
-      @state <=> other.to_i
     end
 
     def hash
@@ -133,18 +138,20 @@ module GodObject
       "#<#{self.class}: #{self.to_s.inspect}>"
     end
 
+    alias to_i state
+
     def to_s(format = :long)
       unless STRING_FORMAT.include?(format)
         raise ArgumentError, "Invalid format: #{format.inspect}"
       end
 
       if format == :short && !@configuration.unique_characters?
-        raise ArgumentError, 'Short mode only available for configurations with unique characters for each digit'
+        raise ArgumentError, 'Short format only available for configurations with unique characters for each digit'
       end
 
       output = ''
 
-      state.each do |digit, value|
+      attributes.each do |digit, value|
         case value
         when true
           output << enabled_character(digit)
@@ -160,43 +167,26 @@ module GodObject
       output
     end
 
-    def to_i
-      @state
-    end
-
     protected
 
-    def digits
-      @configuration.digits
-    end
+    def_delegators :@configuration,
+      :digits, :binary_position, :enabled_character,
+      :disabled_character, :find_digit
 
-    def binary_position(digit)
-      @configuration.binary_position(digit)
-    end
+    def create_attribute_readers
+      bit_set = self
 
-    def enabled_character(digit)
-      @configuration.enabled_character(digit)
-    end
+      singleton_class.class_eval do
+        bit_set.digits.each do |digit|
+          define_method("#{digit}?") do
+            bit_set[digit]
+          end
 
-    def disabled_character(digit)
-      @configuration.disabled_character(digit)
-    end
-
-    def find_digit(index_or_digit)
-      @configuration.find_digit(index_or_digit)
-    end
-
-    def method_missing(name, *arguments)
-      result = /^(?<digit>[A-Za-z\-_]+)\??$/.match(name)
-
-      if result && arguments.empty? && find_digit(result[:digit])
-        self[result[:digit]]
-      else
-        raise ArgumentError
+          alias :"#{digit}" :"#{digit}?"
+        end
       end
-    rescue ArgumentError
-      raise NoMethodError, "undefined method '#{name}'"
     end
 
   end
+
 end

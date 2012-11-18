@@ -68,10 +68,7 @@ module GodObject
          @digits.keys
        end
 
-       def new(*state)
-         state.flatten!
-         state = state[0] if state.length == 1 && state[0].respond_to?(:to_int)
-
+       def new(state)
          BitSet.new(state, self)
        end
 
