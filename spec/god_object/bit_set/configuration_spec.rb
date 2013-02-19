@@ -17,7 +17,7 @@ module GodObject
     end
 
     describe ".new" do
-
+      pending
     end
 
     describe "#min" do
@@ -88,19 +88,19 @@ module GodObject
     end
 
     describe "#find_digit" do
-
+      pending
     end
 
     describe "#==" do
-
+      pending
     end
 
     describe "#eql?" do
-
+      pending
     end
 
     describe "#hash" do
-
+      pending
     end
 
   end
