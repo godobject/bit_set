@@ -13,7 +13,7 @@ module GodObject
         result = BitSet.new(generic_configuration)
 
         result.should be_a(BitSet)
-        result.state.should eql 0
+        result.to_i.should eql 0
         result.configuration.should eql generic_configuration
       end
 
@@ -21,7 +21,7 @@ module GodObject
         result = BitSet.new(0b01010, generic_configuration)
 
         result.should be_a(BitSet)
-        result.state.should eql 0b01010
+        result.to_i.should eql 0b01010
         result.configuration.should eql generic_configuration
       end
 
@@ -29,14 +29,37 @@ module GodObject
         result = BitSet.new(Set[:red, :green], traffic_light_configuration)
 
         result.should be_a(BitSet)
-        result.state.should eql 0b101
+        result.to_i.should eql 0b101
         result.configuration.should eql traffic_light_configuration
+      end
+
+      it "should accept on-the-fly configurations" do
+        result = BitSet.new(Set[:symmetric, :transitive], symmetric: nil, transitive: 't', antisymmetric: ['a', 'x'])
+
+        configuration = BitSet::Configuration.build(symmetric: nil, transitive: 't', antisymmetric: ['a', 'x'])
+
+        result.should be_a(BitSet)
+        result.to_i.should eql 0b110
+        result.to_s.should eql "1tx"
+        result.configuration.should eql configuration
       end
 
       it "should complain about invalid digits" do
         expect {
           BitSet.new(Set[:white, :blue, :green], traffic_light_configuration)
         }.to raise_error(ArgumentError, "Invalid digit(s): :white, :blue")
+      end
+
+      it "should complain about invalid state" do
+        expect {
+          BitSet.new(:invalid, traffic_light_configuration)
+        }.to raise_error(NoMethodError)
+      end
+
+      it "should complain about invalid configuration" do
+        expect {
+          BitSet.new(3, invalid: 12)
+        }.to raise_error(ArgumentError, 'Invalid configuration')
       end
     end
 
@@ -66,27 +89,27 @@ module GodObject
       end
     end
 
-    describe "#attributes" do
-      it "should list all digits and their on/off state" do
-        bit_set = BitSet.new(0b10101, generic_configuration)
-
-        bit_set.attributes.should eql(
-          a: true,
-          b: false,
-          c: true,
-          d: false,
-          e: true
-        )
+    [:state, :attributes].each do |method_name|
+      describe "##{method_name}" do
+        it "should list all digits and their on/off state" do
+          bit_set = BitSet.new(0b10101, generic_configuration)
+  
+          bit_set.public_send(method_name).should eql(
+            a: true,
+            b: false,
+            c: true,
+            d: false,
+            e: true
+          )
+        end
       end
     end
 
-    [:state, :to_i].each do |method_name|
-      describe "##{method_name}" do
-        it "should return the Integer state" do
-          bit_set = BitSet.new(6, traffic_light_configuration)
+    describe "#to_i" do
+      it "should return the Integer state" do
+        bit_set = BitSet.new(6, traffic_light_configuration)
 
-          bit_set.public_send(method_name).should eql 6
-        end
+        bit_set.to_i.should eql 6
       end
     end
 
@@ -139,7 +162,7 @@ module GodObject
         result = bit_set.invert
         result.should be_a(BitSet)
         result.configuration.should eql traffic_light_configuration
-        result.state.should eql 0b010
+        result.to_i.should eql 0b010
         result.should_not equal bit_set
       end
     end
@@ -152,7 +175,7 @@ module GodObject
 
         result.should be_a(BitSet)
         result.configuration.should eql generic_configuration
-        result.state.should eql 0b11010
+        result.to_i.should eql 0b11010
         result.should_not equal bit_set
       end
 
@@ -163,7 +186,7 @@ module GodObject
 
         result.should be_a(BitSet)
         result.configuration.should eql generic_configuration
-        result.state.should eql 0b11010
+        result.to_i.should eql 0b11010
         result.should_not equal bit_set
       end
     end
@@ -176,7 +199,7 @@ module GodObject
 
         result.should be_a(BitSet)
         result.configuration.should eql traffic_light_configuration
-        result.state.should eql 0b100
+        result.to_i.should eql 0b100
         result.should_not equal bit_set
       end
 
@@ -187,7 +210,7 @@ module GodObject
 
         result.should be_a(BitSet)
         result.configuration.should eql traffic_light_configuration
-        result.state.should eql 0b001
+        result.to_i.should eql 0b001
         result.should_not equal bit_set
       end
     end
@@ -202,7 +225,7 @@ module GodObject
 
           result.should be_a(BitSet)
           result.configuration.should eql generic_configuration
-          result.state.should eql 0b01111
+          result.to_i.should eql 0b01111
           result.should_not equal bit_set
         end
 
@@ -213,7 +236,7 @@ module GodObject
 
           result.should be_a(BitSet)
           result.configuration.should eql generic_configuration
-          result.state.should eql 0b01111
+          result.to_i.should eql 0b01111
           result.should_not equal bit_set
         end
       end
@@ -229,7 +252,7 @@ module GodObject
 
           result.should be_a(BitSet)
           result.configuration.should eql traffic_light_configuration
-          result.state.should eql 0b010
+          result.to_i.should eql 0b010
           result.should_not equal bit_set
         end
 
@@ -240,7 +263,7 @@ module GodObject
 
           result.should be_a(BitSet)
           result.configuration.should eql traffic_light_configuration
-          result.state.should eql 0b010
+          result.to_i.should eql 0b010
           result.should_not equal bit_set
         end
       end
@@ -256,7 +279,7 @@ module GodObject
 
           result.should be_a(BitSet)
           result.configuration.should eql generic_configuration
-          result.state.should eql 0b01110
+          result.to_i.should eql 0b01110
           result.should_not equal bit_set
         end
 
@@ -267,7 +290,7 @@ module GodObject
 
           result.should be_a(BitSet)
           result.configuration.should eql generic_configuration
-          result.state.should eql 0b01110
+          result.to_i.should eql 0b01110
           result.should_not equal bit_set
         end
       end

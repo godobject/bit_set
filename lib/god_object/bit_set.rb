@@ -40,7 +40,7 @@ module GodObject
       end
     end
 
-    def attributes
+    def state
       state = {}
 
       digits.each do |digit|
@@ -49,6 +49,8 @@ module GodObject
 
       state
     end
+
+    alias attributes state
 
     def [](index_or_digit)
       digit = find_digit(index_or_digit)
@@ -137,8 +139,6 @@ module GodObject
     def inspect
       "#<#{self.class}: #{self.to_s.inspect}>"
     end
-
-    alias to_i state
 
     def to_s(format = :long)
       unless STRING_FORMAT.include?(format)
