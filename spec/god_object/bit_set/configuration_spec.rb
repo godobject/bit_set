@@ -68,8 +68,8 @@ module GodObject
       end
 
       it "should return the given digit's positional value (given as index)" do
-        traffic_light_configuration.binary_position(2).should eql 4
-        generic_configuration.binary_position(3).should eql 8
+        traffic_light_configuration.binary_position(0).should eql 4
+        generic_configuration.binary_position(1).should eql 8
       end
     end
 

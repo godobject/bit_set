@@ -304,7 +304,7 @@ module GodObject
       end
 
       it "should return true if state and configuration is equal (different class)" do
-        bit_set.should == OpenStruct.new(state: 0b110, configuration: traffic_light_configuration)
+        bit_set.should == OpenStruct.new(integer_representation: 0b110, configuration: traffic_light_configuration)
       end
 
       it "should return false if state is equal but configuration differs" do
@@ -332,7 +332,7 @@ module GodObject
       end
 
       it "should return false if state and configuration is equal (different class)" do
-        bit_set.should_not eql OpenStruct.new(state: 0b110, configuration: traffic_light_configuration)
+        bit_set.should_not eql OpenStruct.new(integer_representation: 0b110, configuration: traffic_light_configuration)
       end
 
       it "should return false if state is equal but configuration differs" do

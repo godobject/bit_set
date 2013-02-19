@@ -9,7 +9,7 @@ module GodObject
   class BitSet
     STRING_FORMAT = Set[:long, :short].freeze
 
-    attr_reader :configuration, :state
+    attr_reader :configuration, :integer_representation
 
     extend Forwardable
     include Comparable
@@ -21,7 +21,7 @@ module GodObject
 
       case
       when state.respond_to?(:to_int)
-        @state = state.to_int
+        @integer_representation = state.to_int
       else
         state, invalid_tokens = state.partition do |token|
           digits.include?(token)
@@ -32,10 +32,10 @@ module GodObject
           raise ArgumentError, "Invalid digit(s): #{string}"
         end
 
-        @state = 0
+        @integer_representation = 0
 
         state.each do |digit|
-          @state |= binary_position(digit)
+          @integer_representation |= binary_position(digit)
         end
       end
     end
@@ -55,7 +55,7 @@ module GodObject
     def [](index_or_digit)
       digit = find_digit(index_or_digit)
 
-      case (@state & binary_position(digit)) >> digits.reverse.index(digit)
+      case (@integer_representation & binary_position(digit)) >> digits.reverse.index(digit)
       when 1 then true
       else
         false
@@ -79,7 +79,7 @@ module GodObject
     end
 
     def invert
-      @configuration.new(@configuration.max - @state)
+      @configuration.new(@configuration.max - @integer_representation)
     end
 
     def +(other)
@@ -95,32 +95,32 @@ module GodObject
     end
 
     def union(other)
-      other = other.state if other.respond_to?(:state)
+      other = other.to_i if other.respond_to?(:to_i)
 
-      @configuration.new(@state | other)
+      @configuration.new(@integer_representation | other)
     end
 
     alias | union
 
     def intersection(other)
-      other = other.state if other.respond_to?(:state)
+      other = other.to_i if other.respond_to?(:to_i)
 
-      @configuration.new(@state & other)
+      @configuration.new(@integer_representation & other)
     end
 
     alias & intersection
 
     def symmetric_difference(other)
-      other = other.state if other.respond_to?(:state)
+      other = other.to_i if other.respond_to?(:to_i)
 
-      @configuration.new(@state ^ other)
+      @configuration.new(@integer_representation ^ other)
     end
 
     alias ^ symmetric_difference
 
     def <=>(other)
       if @configuration == other.configuration
-        @state <=> other.state
+        @integer_representation <=> other.integer_representation
       else
         nil
       end
@@ -133,11 +133,15 @@ module GodObject
     end
 
     def hash
-      [@configuration, @state].hash
+      [@configuration, @integer_representation].hash
     end
 
     def inspect
       "#<#{self.class}: #{self.to_s.inspect}>"
+    end
+
+    def to_i
+      @integer_representation
     end
 
     def to_s(format = :long)
@@ -160,7 +164,7 @@ module GodObject
         end
       end
 
-      if @state == 0 && format == :short
+      if @integer_representation == 0 && format == :short
         output << '-'
       end
 
