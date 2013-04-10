@@ -1,6 +1,6 @@
 # encoding: UTF-8
 =begin
-Copyright Alexander E. Fischer <aef@raxys.net>, 2012-2013
+Copyright GodObject Team <dev@godobject.net>, 2012-2013
 
 This file is part of BitSet.
 
@@ -20,11 +20,16 @@ PERFORMANCE OF THIS SOFTWARE.
 require File.expand_path('../lib/god_object/bit_set/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.authors       = ["Alexander E. Fischer"]
-  gem.email         = ["aef@raxys.net"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
-  gem.homepage      = ""
+  gem.authors       = ["Alexander E. Fischer", "Andreas Wurm"]
+  gem.email         = ["aef@godobject.net", "aw@godobject.net"]
+  gem.description   = <<-DESCRIPTION
+BitSet is a Ruby library implementing a bit set structure with labeled digits
+and binary logic operators. Additionally it allows to create precached
+configurations of BitSets which also allow the String representation to be
+customized easily.
+  DESCRIPTION
+  gem.summary       = "Easy bit sets with named digits and binary logic operators for Ruby"
+  gem.homepage      = "https://www.godobject.net/"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
