@@ -143,8 +143,8 @@ module GodObject
       #   BitSet or a list of enabled digits
       # @return [GodObject::BitSet] a new BitSet object with the current
       #   configuration
-      def new(state)
-        BitSet.new(state, self)
+      def new(*state)
+        BitSet.new(*state, self)
       end
 
       # @return [Integer] the Integer representation of a BitSet where

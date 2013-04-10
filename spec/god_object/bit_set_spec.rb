@@ -25,6 +25,14 @@ module GodObject
         result.configuration.should eql generic_configuration
       end
 
+      it "should accept multiple arguments of enabled digits as initial state and a configuration" do
+        result = BitSet.new(:red, :green, traffic_light_configuration)
+
+        result.should be_a(BitSet)
+        result.to_i.should eql 0b101
+        result.configuration.should eql traffic_light_configuration
+      end
+
       it "should accept a list of enabled digits as initial state and a configuration" do
         result = BitSet.new(Set[:red, :green], traffic_light_configuration)
 
@@ -53,7 +61,7 @@ module GodObject
       it "should complain about invalid state" do
         expect {
           BitSet.new(:invalid, traffic_light_configuration)
-        }.to raise_error(NoMethodError)
+        }.to raise_error(ArgumentError, "Invalid digit(s): :invalid")
       end
 
       it "should complain about invalid configuration" do

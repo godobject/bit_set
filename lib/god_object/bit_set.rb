@@ -23,8 +23,14 @@ require 'forwardable'
 require 'god_object/bit_set/version'
 require 'god_object/bit_set/configuration'
 
-# Namespace for projects of the GodObject team
+# Namespace for projects of the GodObject team <dev@godobject.net>.
 #
+# If you want to be able to simply type Example instead of GodObject::Example
+# to address classes in this namespace simply write the following before using
+# the classes.
+#
+# @example Including the namespace
+#   include GodObject
 # @see https://www.godobject.net/
 module GodObject
 
@@ -53,16 +59,17 @@ module GodObject
     #
     # @param [GodObject::BitSet::Configuration] configuration the configuration
     #   which defines the digits of the BitSet
-    def initialize(state = 0, configuration)
+    def initialize(*state, configuration)
       @configuration = Configuration.build(configuration)
 
       create_attribute_readers
 
-      case
-      when state.respond_to?(:to_int)
-        @integer_representation = state.to_int
+      if state.size == 1 && state.first.respond_to?(:to_int)
+        @integer_representation = state.first.to_int
       else
-        state, invalid_tokens = state.partition do |token|
+        state = state.first if state.size == 1 && state.first.is_a?(Enumerable)
+
+        state, invalid_tokens = state.flatten.partition do |token|
           digits.include?(token)
         end
 
