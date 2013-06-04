@@ -39,13 +39,15 @@ Additional facts:
 * Written purely in Ruby.
 * Documented with YARD.
 * Intended to be used with Ruby 1.9.3 or compatible.
-* Extends core classes. This can be disabled through bare mode.
 * Cryptographically signed gem and git tags.
 * This library was developed as part of the PosixMode project.
 
-Not implemented:
+Shortcomings and problems:
 
 * BitSets with numbered but unnamed digits can't currently be handled.
+* The library is optimized for usability and not for computational efficiency.
+
+If you have solved any of these feel free to submit your changes back.
 
 Synopsis
 --------
@@ -71,7 +73,217 @@ In a bundler Gemfile you should use the following:
 gem 'bit_set'
 ~~~~~
 
-FIXME: Add further documentation.
+If you want to be able to simply call the class names inside the GodObject
+namespace you can include it into the current scope by executing the following
+statement:
+
+~~~~~ ruby
+include GodObject
+~~~~~
+
+The following documentation assumes that you did include the namespace.
+
+### Creating a Configuration
+
+A configuration defines the amount of bits in the set and defines a unique name
+for each. The simplest way to create a configuration is just providing a list
+of symbols. In the concrete bit sets, each digit will then be represented by a
+"1" if it is enabled and a "0" if it is disabled.
+
+~~~~~ ruby
+BitSet::Configuration.new([:red, :green, :blue])
+~~~~~
+
+Instead you can also provide each digit with a custom enabled representation.
+The given String will be used to represent the specific digit when it is
+enabled. In case it is disabled a "-" will be displayed then.
+
+~~~~~ ruby
+pixel_config = BitSet::Configuration.new(
+  red: 'r',
+  green: 'g',
+  blue: 'b'
+)
+~~~~~
+
+One further option is to provide each digit with both an enabled and a disabled
+representation.
+
+~~~~~ ruby
+BitSet::Configuration.new(
+  red: ['r', 'o'],
+  green: ['g', '!'],
+  blue: ['b', 'x']
+)
+~~~~~
+
+### Creating a BitSet
+
+To now create an actual BitSet with this configuration you should call the
+following:
+
+~~~~~ ruby
+bitset = pixel_config.new
+# => #<GodObject::BitSet: "---">
+~~~~~
+
+If you want to provide an initial state for the BitSet you can either list all
+enabled digits like this:
+
+~~~~~ ruby
+bitset = pixel_config.new(:red, :blue)
+# => #<GodObject::BitSet: "r-b">
+~~~~~
+
+Or you can set the initial state by giving an integer representation like this:
+
+~~~~~ ruby
+bitset = pixel_config.new(6)
+# => #<GodObject::BitSet: "rg-">
+~~~~~
+
+Additionally it is possible to create a BitSet by providing a
+BitSet::Configuration object directly:
+
+~~~~~ ruby
+bitset = BitSet.new(:blue, pixel_configuration)
+# => #<GodObject::BitSet: "--b">
+~~~~~
+
+Or by creating a Configuration definition on-the-fly:
+
+~~~~~ ruby
+bitset = BitSet.new(:green, red: 'r', green: 'g', blue: 'b')
+# => #<GodObject::BitSet: "-g-">
+~~~~~
+
+### Examing a BitSet
+
+Each BitSet can be asked for the state of its individual digits:
+
+~~~~~ ruby
+bitset.red?
+# => false
+
+bitset.green?
+# => true
+
+bitset.blue?
+# => false
+~~~~~
+
+Or in a slightly different way:
+
+~~~~~ ruby
+bitset[:red]
+# => false
+
+bitset[:green]
+# => true
+
+bitset[:blue]
+# => false
+~~~~~
+
+You can also get a complete state-containing hash by the following:
+
+~~~~~ ruby
+bitset.state
+# => {:red=>false, :green=>true, :blue=>false}
+~~~~~
+
+Or a Set of all enabled/disabled digits:
+
+~~~~~ ruby
+bitset.enabled_digits
+# => #<Set: {:green}>
+
+bitset.disabled_digits
+# => #<Set: {:red, :blue}>
+~~~~~
+
+A String representation can be generated in the usual way:
+
+~~~~~ ruby
+bitset.to_s
+# => "-g-"
+~~~~~
+
+By default this will generate the long version, with both the enabled and the
+disabled digits represented. A short variant is available as long as each digit
+in the configuration has a unique enabled representation.
+
+~~~~~ ruby
+bitset.to_s(:short)
+# => "g"
+~~~~~
+
+The Integer representation of the BitSet is as well available in a
+straight-forward way:
+
+~~~~~ ruby
+bitset.to_s
+# => 2
+~~~~~
+
+To gain access to the Configuration of the BitSet just use the following:
+
+~~~~~ ruby
+bitset.configuration
+# => 2
+~~~~~
+
+### Comparison
+
+BitSets are considered equal when their state and configuration are equal.
+BitSet::Configurations are considered equal when they have the same list of
+digits, without considering their String representations.
+
+Using the #eql? method for comparison also checks for class family
+compatibility.
+
+### Operations
+
+A set of operations can be used upon BitSets. Notice that BitSets are immutable
+so that the results of the operations are always new BitSet objects.
+
+Each digit's state in a BitSet can be inverted like the following:
+
+~~~~~ ruby
+bitset.invert
+# => #<GodObject::BitSet: "r-b">
+~~~~~
+
+You can combine the enabled digits of two BitSets by adding them together:
+
+~~~~~ ruby
+pixel_config.new(:red) + pixel_config.new(:red, :blue)
+# => #<GodObject::BitSet: "r-b">
+~~~~~
+
+To disable all digits in a BitSet that are enabled in another you can subtract
+them from one another:
+
+~~~~~ ruby
+pixel_config.new(:red, :blue) - pixel_config.new(:green, :blue)
+# => #<GodObject::BitSet: "r--">
+~~~~~
+
+To produce a BitSet which has only those digits enabled which are enabled on
+both given BitSets you can calculate the intersection:
+
+~~~~~ ruby
+pixel_config.new(:red, :blue) ^ pixel_config.new(:green, :blue)
+# => #<GodObject::BitSet: "--b">
+~~~~~
+
+An to only have those digits enabled in the result which are enabled on only
+one of the given BitSets, calculate the symmetric difference:
+
+~~~~~ ruby
+pixel_config.new(:red, :blue).symmetric_difference(pixel_config.new(:green, :blue))
+# => #<GodObject::BitSet: "rg-">
+~~~~~
 
 Requirements
 ------------
