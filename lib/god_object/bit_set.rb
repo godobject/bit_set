@@ -139,7 +139,7 @@ module GodObject
     # @return [GodObject::BitSet] a new BitSet of the same configuration with
     #   all digit states inverted
     def invert
-      @configuration.new(@configuration.max - @integer_representation)
+      @configuration.new(@configuration.valid_range.max - @integer_representation)
     end
 
     # @param [GodObject::BitSet, Array<Symbol>] other another
@@ -295,9 +295,14 @@ module GodObject
     # @!method find_digit
     #   @return (see GodObject::BitSet::Configuration#find_digit)
     #   @private
+    #
+    # @!method valid_range
+    #   @attribute valid_range [readonly]
+    #   @return (see GodObject::BitSet::Configuration#valid_range)
+    #   @private
     def_delegators :@configuration,
       :digits, :binary_position, :enabled_character,
-      :disabled_character, :find_digit
+      :disabled_character, :find_digit, :valid_range
 
     # For each configured digit name, a reader method and a reader method with
     # a question mark suffix is generated to easily ask for the state of a

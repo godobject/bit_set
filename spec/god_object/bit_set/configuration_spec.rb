@@ -101,17 +101,10 @@ module GodObject
       end
     end
 
-    describe "#min" do
-      it "should return the minimum Integer state for BitSets of the Configuration (always 0)" do
-        traffic_light_configuration.min.should eql 0
-        generic_configuration.min.should eql 0
-      end
-    end
-
-    describe "#max" do
-      it "should return the maximum Integer state for BitSets of the Configuration" do
-        traffic_light_configuration.max.should eql 7
-        generic_configuration.max.should eql 31
+    describe "#valid_range" do
+      it "should return the Range in which an Integer representation of a BitSet of this Configuration can be" do
+        traffic_light_configuration.valid_range.should eql 0..7
+        generic_configuration.valid_range.should eql 0..31
       end
     end
 

@@ -69,8 +69,9 @@ module GodObject
 
       end
 
-      # @return [Integer] the Integer representation if all digits are enabled
-      attr_reader :max
+      # @return [Range<Integer>] the Range in which an Integer representation of a
+      #   BitSet with this Configuration can be.
+      attr_reader :valid_range
 
       # Initializes a new BitSet::Configuration
       # 
@@ -114,15 +115,9 @@ module GodObject
 
         @digits.keys.reverse.each_with_index{|digit, index| @digits[digit] = 2 ** index }
 
-        @max = (@digits.values.first * 2) - 1
+        @valid_range = Range.new(0, (@digits.values.first * 2) - 1).freeze
 
         @unique_characters = !@enabled.values.dup.uniq!
-      end
-
-      # @attribute min [readonly]
-      # @return [Integer] the Integer representation if all digits are disabled
-      def min
-        0
       end
 
       # Answers if all digits have unique enabled representations.
