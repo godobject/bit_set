@@ -20,6 +20,8 @@ PERFORMANCE OF THIS SOFTWARE.
 require File.expand_path('../lib/god_object/bit_set/version', __FILE__)
 
 Gem::Specification.new do |gem|
+  gem.name          = "bit_set"
+  gem.version       = GodObject::BitSet::VERSION.dup
   gem.authors       = ["Alexander E. Fischer", "Andreas Wurm"]
   gem.email         = ["aef@godobject.net", "aw@godobject.net"]
   gem.description   = <<-DESCRIPTION
@@ -30,13 +32,17 @@ customized easily.
   DESCRIPTION
   gem.summary       = "Easy bit sets with named digits and binary logic operators for Ruby"
   gem.homepage      = "https://www.godobject.net/"
+  gem.license       = "ISC"
+  gem.has_rdoc      = "yard"
+  gem.extra_rdoc_file  = ["HISTORY.md", "LICENSE.md"]
+  gem.rubyforge_project = nil
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
-  gem.name          = "bit_set"
   gem.require_paths = ["lib"]
-  gem.version       = GodObject::BitSet::VERSION.dup
+
+  gem.required_ruby_version = '>= 1.9.3'
 
   gem.add_development_dependency('rspec', '2.12.0')
   gem.add_development_dependency('pry')
