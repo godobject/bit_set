@@ -1,10 +1,10 @@
 BitSet
 ======
 
-[![Gem Version](https://badge.fury.io/rb/user-choices-pathname.png)](http://badge.fury.io/rb/bit_set)
+[![Gem Version](https://badge.fury.io/rb/bit_set.png)](http://badge.fury.io/rb/bit_set)
 [![Build Status](https://secure.travis-ci.org/godobject/bit_set.png)](https://secure.travis-ci.org/godobject/bit_set)
 [![Dependency Status](https://gemnasium.com/godobject/bit_set.png)](https://gemnasium.com/godobject/bit_set)
-[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/godobject/bit_set)
+[![Code Climate](https://codeclimate.com/github/godobject/bit_set.png)](https://codeclimate.com/github/godobject/bit_set)
 [![Coverage Status](https://coveralls.io/repos/godobject/bit_set/badge.png?branch=master)](https://coveralls.io/r/godobject/bit_set)
 
 * [Documentation][docs]
@@ -75,6 +75,8 @@ In a bundler Gemfile you should use the following:
 ~~~~~ ruby
 gem 'bit_set'
 ~~~~~
+
+### Library
 
 If you want to be able to simply call the class names inside the GodObject
 namespace you can include it into the current scope by executing the following
@@ -345,7 +347,7 @@ Development
 Please use the [issue tracker][issues] on github.com to let me know about errors
 or ideas for improvement of this software.
 
-   [issues]: https://github.com/god_object/bitset/issues/
+   [issues]: https://github.com/godobject/bitset/issues/
 
 ### Source code
 
