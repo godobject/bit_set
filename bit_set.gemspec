@@ -22,15 +22,15 @@ require File.expand_path('../lib/god_object/bit_set/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.name    = "bit_set"
   gem.version = GodObject::BitSet::VERSION.dup
-  gem.authors = ["Alexander E. Fischer", "Andreas Wurm"]
-  gem.email   = ["aef@godobject.net", "aw@godobject.net"]
+  gem.authors = ["Oliver Feldt", "Alexander E. Fischer", "Axel Sorge", "Andreas Wurm"]
+  gem.email   = ["of@godobject.net", "aef@godobject.net", "as@godobject.net", "aw@godobject.net"]
   gem.description = <<-DESCRIPTION
 BitSet is a Ruby library implementing a bit set structure with labeled digits
 and binary logic operators. Additionally it allows to create precached
 configurations of BitSets which also allow the String representation to be
 customized easily.
   DESCRIPTION
-  gem.summary  = "Easy bit sets with named digits and binary logic operators for Ruby"
+  gem.summary  = "Easy bit sets with named digits and binary logic operators for Ruby."
   gem.homepage = "https://www.godobject.net/"
   gem.license  = "ISC"
   gem.has_rdoc = "yard"
@@ -46,7 +46,7 @@ customized easily.
 
   gem.add_development_dependency('rake')
   gem.add_development_dependency('bundler')
-  gem.add_development_dependency('rspec', '~> 2.12.0')
+  gem.add_development_dependency('rspec', '~> 2.14.1')
   gem.add_development_dependency('simplecov')
   gem.add_development_dependency('pry')
   gem.add_development_dependency('yard')

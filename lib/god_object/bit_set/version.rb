@@ -20,9 +20,9 @@ PERFORMANCE OF THIS SOFTWARE.
 module GodObject
   class BitSet
 
-    # The currently loaded library version
+    # The currently loaded version.
     #
-    # Using Semantic Versioning (2.0.0-rc.1) rules
+    # Using Semantic Versioning (2.0.0) rules
     # @see http://semver.org/
     VERSION = '0.1.0'.freeze
 

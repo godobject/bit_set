@@ -17,7 +17,9 @@ OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 PERFORMANCE OF THIS SOFTWARE.
 =end
 
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
-# Specify your gem's dependencies in bit_set.gemspec
+# Gem dependencies are specified in the .gemspec file
 gemspec
+
+gem 'coveralls', require: false

@@ -1,7 +1,7 @@
 BitSet
 ======
 
-[![Gem Version](https://badge.fury.io/rb/bit_set.png)](http://badge.fury.io/rb/bit_set)
+[![Gem Version](https://badge.fury.io/rb/bit_set.png)](https://badge.fury.io/rb/bit_set)
 [![Build Status](https://secure.travis-ci.org/godobject/bit_set.png)](https://secure.travis-ci.org/godobject/bit_set)
 [![Dependency Status](https://gemnasium.com/godobject/bit_set.png)](https://gemnasium.com/godobject/bit_set)
 [![Code Climate](https://codeclimate.com/github/godobject/bit_set.png)](https://codeclimate.com/github/godobject/bit_set)
@@ -43,7 +43,8 @@ Additional facts:
 * Automatically testable through RSpec.
 * Intended to be used with Ruby 1.9.3 or higher.
 * Cryptographically signed gem and git tags.
-* This library was developed as part of the PosixMode project.
+* This library was developed as part of the
+  [PosixMode](https://rubygems.org/gems/posix_mode) project.
 
 Shortcomings and problems:
 
@@ -64,7 +65,7 @@ substantially in future releases.
 
 ### Loading
 
-In most cases you want to load the library by the following command:
+In most cases you want to load the code by using the following command:
 
 ~~~~~ ruby
 require 'bit_set'
@@ -76,11 +77,11 @@ In a bundler Gemfile you should use the following:
 gem 'bit_set'
 ~~~~~
 
-### Library
+### Namespace
 
-If you want to be able to simply call the class names inside the GodObject
-namespace you can include it into the current scope by executing the following
-statement:
+This project is contained within a namespace to avoid name collisions with
+other code. If you do not want to specifiy the namespace explicitly you can
+include it into the current scope by executing the following statement:
 
 ~~~~~ ruby
 include GodObject
@@ -347,28 +348,35 @@ Development
 Please use the [issue tracker][issues] on github.com to let me know about errors
 or ideas for improvement of this software.
 
-   [issues]: https://github.com/godobject/bitset/issues/
+   [issues]: https://github.com/godobject/bit_set/issues/
 
 ### Source code
+
+#### Distribution
 
 This software is developed in the source code management system Git. There are
 several synchronized mirror repositories available:
 
-* GitHub (located in California, USA)
+* [GitHub][github] (located in California, USA)
     
     URL: https://github.com/godobject/bit_set.git
 
-* Gitorious (located in Norway)
+* [Gitorious][gitorious] (located in Norway)
     
     URL: https://git.gitorious.org/bit_set/bit_set.git
 
-* BitBucket (located in Colorado, USA)
+* [BitBucket][bitbucket] (located in Colorado, USA)
     
     URL: https://bitbucket.org/godobject/bit_set.git
 
-* Pikacode (located in France)
+* [Pikacode][pikacode] (located in France)
 
     URL: https://pikacode.com/godobject/bit_set.git
+
+   [github]:    https://github.com/godobject/bit_set/
+   [gitorious]: https://gitorious.org/bit_set/bit_set/
+   [bitbucket]: https://bitbucket.org/godobject/bit_set/
+   [pikacode]:  https://pikacode.com/godobject/bit_set/
 
 You can get the latest source code with the following command, while
 exchanging the placeholder for one of the mirror URLs:
@@ -415,8 +423,10 @@ cannot be guaranteed before reviewing them.
 
 The following people were involved in development:
 
-- Alexander E. Fischer
-- Andreas Wurm
+* Oliver Feldt <of@godobject.net>
+* Alexander E. Fischer <aef@godobject.net>
+* Axel Sorge <as@godobject.net>
+* Andreas Wurm <aw@godobject.net>
 
 License
 -------
