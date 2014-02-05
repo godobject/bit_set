@@ -37,7 +37,14 @@ customized easily.
   gem.extra_rdoc_files  = ["HISTORY.md", "LICENSE.md"]
   gem.rubyforge_project = nil
 
-  gem.files         = `git ls-files`.split($\)
+  `git ls-files 2> /dev/null`
+
+  if $?.success?
+    gem.files         = `git ls-files`.split($\)
+  else
+    gem.files         = `ls -1`.split($\)
+  end
+
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
