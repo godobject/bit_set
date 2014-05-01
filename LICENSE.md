@@ -1,4 +1,4 @@
-Copyright GodObject Team <dev@godobject.net>, 2012-2013
+Copyright GodObject Team <dev@godobject.net>, 2012-2014
 
 BitSet is licensed under the following ISC-style license:
 
