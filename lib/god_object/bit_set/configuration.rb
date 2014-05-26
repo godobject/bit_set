@@ -18,7 +18,7 @@ PERFORMANCE OF THIS SOFTWARE.
 =end
 
 module GodObject
-  class BitSet
+  module BitSet
 
     # A Configuration defines the digits of a BitSet. Additionally it can hold
     # information on how to represent the digits in a String representation.

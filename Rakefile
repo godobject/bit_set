@@ -42,7 +42,7 @@ task :console do
   Bundler.setup
   require 'pry'
   require 'bit_set'
-  Pry.start(GodObject)
+  Pry.start(GodObject::BitSet)
 end
 
 task :default => :spec

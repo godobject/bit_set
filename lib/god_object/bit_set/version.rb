@@ -18,7 +18,7 @@ PERFORMANCE OF THIS SOFTWARE.
 =end
 
 module GodObject
-  class BitSet
+  module BitSet
 
     # The currently loaded version.
     #

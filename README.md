@@ -84,7 +84,7 @@ other code. If you do not want to specifiy the namespace explicitly you can
 include it into the current scope by executing the following statement:
 
 ~~~~~ ruby
-include GodObject
+include GodObject::BitSet
 ~~~~~
 
 The following documentation assumes that you did include the namespace.
@@ -97,7 +97,7 @@ of symbols. In the concrete bit sets, each digit will then be represented by a
 "1" if it is enabled and a "0" if it is disabled.
 
 ~~~~~ ruby
-BitSet::Configuration.new([:red, :green, :blue])
+Configuration.new([:red, :green, :blue])
 ~~~~~
 
 Instead you can also provide each digit with a custom enabled representation.
@@ -105,7 +105,7 @@ The given String will be used to represent the specific digit when it is
 enabled. In case it is disabled a "-" will be displayed then.
 
 ~~~~~ ruby
-pixel_config = BitSet::Configuration.new(
+pixel_config = Configuration.new(
   red: 'r',
   green: 'g',
   blue: 'b'
@@ -116,7 +116,7 @@ One further option is to provide each digit with both an enabled and a disabled
 representation.
 
 ~~~~~ ruby
-BitSet::Configuration.new(
+Configuration.new(
   red: ['r', 'o'],
   green: ['g', '!'],
   blue: ['b', 'x']
@@ -149,7 +149,7 @@ bitset = pixel_config.new(6)
 ~~~~~
 
 Additionally it is possible to create a BitSet by providing a
-BitSet::Configuration object directly:
+Configuration object directly:
 
 ~~~~~ ruby
 bitset = BitSet.new(:blue, pixel_configuration)
@@ -242,7 +242,7 @@ bitset.configuration
 ### Comparison
 
 BitSets are considered equal when their state and configuration are equal.
-BitSet::Configurations are considered equal when they have the same list of
+Configurations are considered equal when they have the same list of
 digits, without considering their String representations.
 
 Using the #eql? method for comparison also checks for class family
