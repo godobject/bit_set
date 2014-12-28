@@ -326,7 +326,7 @@ Development
 
 ### Bug reports and feature requests
 
-Please use the [issue tracker][issues] on github.com to let me know about errors
+Please use the [issue tracker][issues] on github.com to let us know about errors
 or ideas for improvement of this software.
 
    [issues]: https://github.com/godobject/bit_set/issues/
