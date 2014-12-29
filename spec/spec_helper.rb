@@ -31,3 +31,4 @@ end
 require 'rspec'
 require 'pry'
 require 'bit_set'
+require 'ostruct'
