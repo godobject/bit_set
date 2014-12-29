@@ -111,7 +111,7 @@ module GodObject
         it "should complain about invalid methods as usual" do
           expect {
             BitSet.new(0b101, traffic_light_configuration).fnord
-          }.to raise_error(NoMethodError, /^undefined method `fnord' for/)
+          }.to raise_error(NoMethodError, /^undefined method `fnord'/)
         end
       end
 
