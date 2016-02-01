@@ -17,6 +17,10 @@ OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 PERFORMANCE OF THIS SOFTWARE.
 =end
 
+require 'bundler'
+
+Bundler.setup
+
 require 'bundler/gem_tasks'
 require 'rake'
 require 'pathname'
@@ -39,7 +43,6 @@ end
 
 desc "Opens an interactive console with the project code loaded"
 task :console do
-  Bundler.setup
   require 'pry'
   require 'bit_set'
   Pry.start(GodObject::BitSet)
