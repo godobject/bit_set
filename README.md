@@ -97,13 +97,13 @@ substantially in future releases.
 
 In most cases you want to load the code by using the following command:
 
-~~~~~ ruby
+~~~~~
 require 'bit_set'
 ~~~~~
 
 In a bundler Gemfile you should use the following:
 
-~~~~~ ruby
+~~~~~
 gem 'bit_set'
 ~~~~~
 
@@ -113,7 +113,7 @@ This project is contained within a namespace to avoid name collisions with
 other code. If you do not want to specifiy the namespace explicitly you can
 include it into the current scope by executing the following statement:
 
-~~~~~ ruby
+~~~~~
 include GodObject::BitSet
 ~~~~~
 
@@ -126,7 +126,7 @@ for each. The simplest way to create a configuration is just providing a list
 of symbols. In the concrete bit sets, each digit will then be represented by a
 "1" if it is enabled and a "0" if it is disabled.
 
-~~~~~ ruby
+~~~~~
 Configuration.new([:red, :green, :blue])
 ~~~~~
 
@@ -134,7 +134,7 @@ Instead you can also provide each digit with a custom enabled representation.
 The given String will be used to represent the specific digit when it is
 enabled. In case it is disabled a "-" will be displayed then.
 
-~~~~~ ruby
+~~~~~
 pixel_config = Configuration.new(
   red: 'r',
   green: 'g',
@@ -145,7 +145,7 @@ pixel_config = Configuration.new(
 One further option is to provide each digit with both an enabled and a disabled
 representation.
 
-~~~~~ ruby
+~~~~~
 Configuration.new(
   red: ['r', 'o'],
   green: ['g', '!'],
@@ -158,7 +158,7 @@ Configuration.new(
 To now create an actual BitSet with this configuration you should call the
 following:
 
-~~~~~ ruby
+~~~~~
 bitset = pixel_config.new
 # => #<GodObject::BitSet: "---">
 ~~~~~
@@ -166,14 +166,14 @@ bitset = pixel_config.new
 If you want to provide an initial state for the BitSet you can either list all
 enabled digits like this:
 
-~~~~~ ruby
+~~~~~
 bitset = pixel_config.new(:red, :blue)
 # => #<GodObject::BitSet: "r-b">
 ~~~~~
 
 Or you can set the initial state by giving an integer representation like this:
 
-~~~~~ ruby
+~~~~~
 bitset = pixel_config.new(6)
 # => #<GodObject::BitSet: "rg-">
 ~~~~~
@@ -181,14 +181,14 @@ bitset = pixel_config.new(6)
 Additionally it is possible to create a BitSet by providing a
 Configuration object directly:
 
-~~~~~ ruby
+~~~~~
 bitset = BitSet.new(:blue, pixel_configuration)
 # => #<GodObject::BitSet: "--b">
 ~~~~~
 
 Or by creating a Configuration definition on-the-fly:
 
-~~~~~ ruby
+~~~~~
 bitset = BitSet.new(:green, red: 'r', green: 'g', blue: 'b')
 # => #<GodObject::BitSet: "-g-">
 ~~~~~
@@ -197,7 +197,7 @@ bitset = BitSet.new(:green, red: 'r', green: 'g', blue: 'b')
 
 Each BitSet can be asked for the state of its individual digits:
 
-~~~~~ ruby
+~~~~~
 bitset.red?
 # => false
 
@@ -210,7 +210,7 @@ bitset.blue?
 
 Or in a slightly different way:
 
-~~~~~ ruby
+~~~~~
 bitset[:red]
 # => false
 
@@ -223,14 +223,14 @@ bitset[:blue]
 
 You can also get a complete state-containing hash by the following:
 
-~~~~~ ruby
+~~~~~
 bitset.state
 # => {:red=>false, :green=>true, :blue=>false}
 ~~~~~
 
 Or a Set of all enabled/disabled digits:
 
-~~~~~ ruby
+~~~~~
 bitset.enabled_digits
 # => #<Set: {:green}>
 
@@ -240,7 +240,7 @@ bitset.disabled_digits
 
 A String representation can be generated in the usual way:
 
-~~~~~ ruby
+~~~~~
 bitset.to_s
 # => "-g-"
 ~~~~~
@@ -249,7 +249,7 @@ By default this will generate the long version, with both the enabled and the
 disabled digits represented. A short variant is available as long as each digit
 in the configuration has a unique enabled representation.
 
-~~~~~ ruby
+~~~~~
 bitset.to_s(:short)
 # => "g"
 ~~~~~
@@ -257,14 +257,14 @@ bitset.to_s(:short)
 The Integer representation of the BitSet is as well available in a
 straight-forward way:
 
-~~~~~ ruby
+~~~~~
 bitset.to_s
 # => 2
 ~~~~~
 
 To gain access to the Configuration of the BitSet just use the following:
 
-~~~~~ ruby
+~~~~~
 bitset.configuration
 # => 2
 ~~~~~
@@ -285,14 +285,14 @@ so that the results of the operations are always new BitSet objects.
 
 Each digit's state in a BitSet can be inverted like the following:
 
-~~~~~ ruby
+~~~~~
 bitset.invert
 # => #<GodObject::BitSet: "r-b">
 ~~~~~
 
 You can combine the enabled digits of two BitSets by adding them together:
 
-~~~~~ ruby
+~~~~~
 pixel_config.new(:red) + pixel_config.new(:red, :blue)
 # => #<GodObject::BitSet: "r-b">
 ~~~~~
@@ -300,7 +300,7 @@ pixel_config.new(:red) + pixel_config.new(:red, :blue)
 To disable all digits in a BitSet that are enabled in another you can subtract
 them from one another:
 
-~~~~~ ruby
+~~~~~
 pixel_config.new(:red, :blue) - pixel_config.new(:green, :blue)
 # => #<GodObject::BitSet: "r--">
 ~~~~~
@@ -308,7 +308,7 @@ pixel_config.new(:red, :blue) - pixel_config.new(:green, :blue)
 To produce a BitSet which has only those digits enabled which are enabled on
 both given BitSets you can calculate the intersection:
 
-~~~~~ ruby
+~~~~~
 pixel_config.new(:red, :blue) ^ pixel_config.new(:green, :blue)
 # => #<GodObject::BitSet: "--b">
 ~~~~~
@@ -316,7 +316,7 @@ pixel_config.new(:red, :blue) ^ pixel_config.new(:green, :blue)
 An to only have those digits enabled in the result which are enabled on only
 one of the given BitSets, calculate the symmetric difference:
 
-~~~~~ ruby
+~~~~~
 pixel_config.new(:red, :blue).symmetric_difference(pixel_config.new(:green, :blue))
 # => #<GodObject::BitSet: "rg-">
 ~~~~~
