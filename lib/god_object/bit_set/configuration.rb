@@ -188,6 +188,8 @@ module GodObject
       #   otherwise
       def ==(other)
         digits == other.digits
+      rescue NoMethodError
+        false
       end
 
       # Answers if another object is equal and of the same type family.

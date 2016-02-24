@@ -186,29 +186,46 @@ module GodObject
           expect(traffic_light_configuration).to eq(configuration)
         end
 
-        it "should return false if state is equal but configuration differs" do
-          pending
-          expect(bit_set).not_to eq(BitSet.new(0b110, generic_configuration))
-        end
+        it "should return false if digits differ" do
+          configuration = Configuration.new([:yellow, :red, :green])
 
-        it "should return false if configuration is equal but state differs" do
-          pending
-          expect(bit_set).not_to eq(BitSet.new(0b010, traffic_light_configuration))
-        end
-
-        it "should return false if both state and configuration differ" do
-          pending
-          expect(bit_set).not_to eq(BitSet.new(0b010, generic_configuration))
+          expect(traffic_light_configuration).not_to eq(configuration)
         end
 
         it "should return false if compared to incompatible type" do
-          pending
-          expect(bit_set).not_to eq(:incompatible)
+          expect(traffic_light_configuration).not_to eq(:incompatible)
         end
       end
 
       describe "#eql?" do
-        pending
+        it "should return true if digits and representation are equal" do
+          configuration = Configuration.new(red: 'r', yellow: 'y', green: 'g')
+
+          expect(traffic_light_configuration).to eql(configuration)
+        end
+
+        it "should return true if only digits are equal" do
+          configuration = Configuration.new([:red, :yellow, :green])
+
+          expect(traffic_light_configuration).to eql(configuration)
+        end
+
+        it "should return false if digits are equal but different class" do
+          configuration = OpenStruct.new
+          configuration.digits = [:red, :yellow, :green]
+
+          expect(traffic_light_configuration).not_to eql(configuration)
+        end
+
+        it "should return false if digits differ" do
+          configuration = Configuration.new([:yellow, :red, :green])
+
+          expect(traffic_light_configuration).not_to eql(configuration)
+        end
+
+        it "should return false if compared to incompatible type" do
+          expect(traffic_light_configuration).not_to eql(:incompatible)
+        end
       end
 
       describe "#hash" do
