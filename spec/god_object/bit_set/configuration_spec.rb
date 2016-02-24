@@ -234,8 +234,7 @@ module GodObject
         end
 
         it "should differ if the digits differ" do
-          # This currently fails on Rubinius 2.4.1 because of an error in Rubinius
-          configuration = Configuration.new([:e, :d, :c, :b, :a])
+          configuration = Configuration.new([:a, :b, :c, :d, :x])
 
           expect(generic_configuration.hash).not_to eql configuration.hash
         end
