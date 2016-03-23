@@ -346,7 +346,7 @@ several synchronized mirror repositories available:
     
     URL: https://gitlab.com/godobject/bit_set.git
 
-* [BitBucket][bitbucket] (located in Colorado, USA)
+* [BitBucket][bitbucket] (located in California, USA)
     
     URL: https://bitbucket.org/godobject/bit_set.git
 
