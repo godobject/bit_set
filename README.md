@@ -2,9 +2,9 @@ BitSet
 ======
 
 [![Gem Version](https://badge.fury.io/rb/bit_set.png)](https://badge.fury.io/rb/bit_set)
-[![Build Status](https://secure.travis-ci.org/godobject/bit_set.png)](https://secure.travis-ci.org/godobject/bit_set)
 [![Dependency Status](https://gemnasium.com/godobject/bit_set.png)](https://gemnasium.com/godobject/bit_set)
 [![Code Climate](https://codeclimate.com/github/godobject/bit_set.png)](https://codeclimate.com/github/godobject/bit_set)
+[![Build Status](https://secure.travis-ci.org/godobject/bit_set.png)](https://secure.travis-ci.org/godobject/bit_set)
 [![Coverage Status](https://coveralls.io/repos/godobject/bit_set/badge.png?branch=master)](https://coveralls.io/r/godobject/bit_set)
 
 * [Documentation][docs]
@@ -97,13 +97,13 @@ substantially in future releases.
 
 In most cases you want to load the code by using the following command:
 
-~~~~~
+~~~~~ ruby
 require 'bit_set'
 ~~~~~
 
 In a bundler Gemfile you should use the following:
 
-~~~~~
+~~~~~ ruby
 gem 'bit_set'
 ~~~~~
 
@@ -113,7 +113,7 @@ This project is contained within a namespace to avoid name collisions with
 other code. If you do not want to specifiy the namespace explicitly you can
 include it into the current scope by executing the following statement:
 
-~~~~~
+~~~~~ ruby
 include GodObject::BitSet
 ~~~~~
 
