@@ -5,7 +5,7 @@ BitSet
 [![Dependency Status](https://gemnasium.com/godobject/bit_set.png)](https://gemnasium.com/godobject/bit_set)
 [![Code Climate](https://codeclimate.com/github/godobject/bit_set.png)](https://codeclimate.com/github/godobject/bit_set)
 [![Build Status](https://secure.travis-ci.org/godobject/bit_set.png)](https://secure.travis-ci.org/godobject/bit_set)
-[![Coverage Status](https://coveralls.io/repos/godobject/bit_set/badge.png?branch=master)](https://coveralls.io/r/godobject/bit_set)
+[![Coverage Status](https://coveralls.io/repos/github/godobject/bit_set/badge.svg?branch=master)](https://coveralls.io/github/godobject/bit_set?branch=master)
 
 * [Documentation][docs]
 * [Project][project]
