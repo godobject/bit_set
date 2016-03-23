@@ -342,9 +342,9 @@ several synchronized mirror repositories available:
     
     URL: https://github.com/godobject/bit_set.git
 
-* [Gitorious][gitorious] (located in Norway)
+* [GitLab][gitlab] (located in Illinois, USA)
     
-    URL: https://git.gitorious.org/bit_set/bit_set.git
+    URL: https://gitlab.com/godobject/bit_set.git
 
 * [BitBucket][bitbucket] (located in Colorado, USA)
     
@@ -355,7 +355,7 @@ several synchronized mirror repositories available:
     URL: https://pikacode.com/godobject/bit_set.git
 
    [github]:    https://github.com/godobject/bit_set/
-   [gitorious]: https://gitorious.org/bit_set/bit_set/
+   [gitlab]:    https://gitlab.com/godobject/bit_set/
    [bitbucket]: https://bitbucket.org/godobject/bit_set/
    [pikacode]:  https://pikacode.com/godobject/bit_set/
 
