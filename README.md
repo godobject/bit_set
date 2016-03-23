@@ -412,7 +412,7 @@ The following people were involved in development:
 License
 -------
 
-Copyright GodObject Team <dev@godobject.net>, 2012-2014
+Copyright GodObject Team <dev@godobject.net>, 2012-2016
 
 This file is part of BitSet.
 
