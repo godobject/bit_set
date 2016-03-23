@@ -19,8 +19,8 @@ PERFORMANCE OF THIS SOFTWARE.
 
 module GodObject
   module BitSet
-    describe BitSet do
 
+    describe BitSet do
       let(:traffic_light_configuration) { Configuration.new(red: 'r', yellow: 'y', green: 'g') }
       let(:generic_configuration) { Configuration.new([:a, :b, :c, :d, :e])}
 
@@ -481,7 +481,7 @@ module GodObject
           end
         end
       end
-
     end
+
   end
 end

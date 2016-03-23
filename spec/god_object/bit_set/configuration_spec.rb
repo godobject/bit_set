@@ -19,8 +19,8 @@ PERFORMANCE OF THIS SOFTWARE.
 
 module GodObject
   module BitSet
-    describe Configuration do
 
+    describe Configuration do
       let(:traffic_light_configuration) { Configuration.new(red: 'r', yellow: 'y', green: 'g') }
       let(:generic_configuration) { Configuration.new([:a, :b, :c, :d, :e])}
 
@@ -243,7 +243,7 @@ module GodObject
           expect(traffic_light_configuration.hash).to eql configuration.hash
         end
       end
-
     end
+
   end
 end
