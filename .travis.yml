@@ -6,6 +6,29 @@ rvm:
   - 2.2
   - 2.3.0
   - rbx-2
+  - rbx-3
   - jruby-19mode
+  - jruby-9.0
+matrix:
+  - ruby: jruby-19mode
+    jdk: openjdk6
+  - ruby: jruby-19mode
+    jdk: openjdk7
+  - ruby: jruby-19mode
+    jdk: openjdk8
+  - ruby: jruby-19mode
+    jdk: oraclejdk7
+  - ruby: jruby-19mode
+    jdk: oraclejdk8
+  - ruby: jruby-9.0
+    jdk: openjdk6
+  - ruby: jruby-9.0
+    jdk: openjdk7
+  - ruby: jruby-9.0
+    jdk: openjdk8
+  - ruby: jruby-9.0
+    jdk: oraclejdk7
+  - ruby: jruby-9.0
+    jdk: oraclejdk8
 before_install:
   - gem install bundler
