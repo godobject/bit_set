@@ -36,7 +36,6 @@ matrix:
     - rvm: *jruby_9_0
       jdk: oraclejdk8
       os: linux
-
     - rvm: *jruby_1_7
       os: osx
     - rvm: *jruby_9_0
@@ -46,7 +45,10 @@ matrix:
       os: osx
     - rvm: 2.3.0 # Not available on Travis CI yet
       os: osx
+    - rvm: *jruby_1_7 # Not available on Travis CI yet
+      os: osx
     - rvm: *jruby_9_0 # JRuby 9.x does not support OpenJDK 6
       jdk: openjdk6
+
 before_install:
   - gem install bundler
