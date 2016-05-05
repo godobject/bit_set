@@ -31,7 +31,7 @@ This project tries to conform to:
 * [Ruby Style Guide][style]
 * [Gem Packaging: Best Practices][gem]
 
-   [semver]: http://semver.org/
+   [semver]: http://semver.org/spec/v2.0.0.html
    [rps]:    http://chneukirchen.github.com/rps/
    [style]:  https://github.com/bbatsov/ruby-style-guide
    [gem]:    http://weblog.rubyonrails.org/2009/9/1/gem-packaging-best-practices
@@ -84,12 +84,18 @@ If something goes wrong you should be notified through failing examples.
 Usage
 -----
 
-This documentation defines the public interface of the software. Don't rely
-on elements marked as private. Those should be hidden in the documentation
-by default.
+This documentation defines the public interface of the software. The version
+number of the software tracks changes to this public interface as described in
+[Semantic Versioning][semver]. Do not use elements that are marked as private.
+These elements are not guaranteed to exist in otherwise compatible future
+versions. Should you really need some parts that are currently marked as
+private, please contact us. We might be able to expose them as public
+interface for your convenience.
 
 This is still experimental software, even the public interface may change
 substantially in future releases.
+
+   [semver]: http://semver.org/spec/v2.0.0.html
 
 ### Ruby interface
 
