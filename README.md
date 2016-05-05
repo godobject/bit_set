@@ -79,7 +79,7 @@ Afterwards start the test runner:
 
     rake spec
 
-If something goes wrong you should be noticed through failing examples.
+If something goes wrong you should be notified through failing examples.
 
 Usage
 -----
@@ -122,17 +122,17 @@ The following documentation assumes that you did include the namespace.
 #### Creating a Configuration
 
 A configuration defines the amount of bits in the set and defines a unique name
-for each. The simplest way to create a configuration is just providing a list
-of symbols. In the concrete bit sets, each digit will then be represented by a
-"1" if it is enabled and a "0" if it is disabled.
+for each. The simplest way to create a configuration is to providing a list of
+symbols. In the concrete bit sets, each digit will then be represented by a "1"
+if it is enabled and a "0" if it is disabled.
 
 ~~~~~
 Configuration.new([:red, :green, :blue])
 ~~~~~
 
-Instead you can also provide each digit with a custom enabled representation.
-The given String will be used to represent the specific digit when it is
-enabled. In case it is disabled a "-" will be displayed then.
+Instead you can also provide each digit with a specificy "enabled"
+representation. The given String will be used to represent the specific digit
+when it is enabled. In case it is disabled a "-" will be displayed.
 
 ~~~~~
 pixel_config = Configuration.new(
@@ -142,8 +142,8 @@ pixel_config = Configuration.new(
 )
 ~~~~~
 
-One further option is to provide each digit with both an enabled and a disabled
-representation.
+One further option is to provide each digit with both specific "enabled" and
+"disabled" representations.
 
 ~~~~~
 Configuration.new(
@@ -155,7 +155,7 @@ Configuration.new(
 
 #### Creating a BitSet
 
-To now create an actual BitSet with this configuration you should call the
+To create an actual BitSet based on a given configuration you can call the
 following:
 
 ~~~~~
@@ -254,12 +254,12 @@ bitset.to_s(:short)
 # => "g"
 ~~~~~
 
-The Integer representation of the BitSet is as well available in a
+An Integer representation of the BitSet is as well available in a
 straight-forward way:
 
 ~~~~~
 bitset.to_s
-# => 2
+# => #<GodObject::BitSet::Configuration: … >
 ~~~~~
 
 To gain access to the Configuration of the BitSet just use the following:
@@ -340,19 +340,19 @@ several synchronized mirror repositories available:
 
 * [GitHub][github] (located in California, USA)
     
-    URL: https://github.com/godobject/bit_set.git
+    URI: https://github.com/godobject/bit_set.git
 
 * [GitLab][gitlab] (located in Illinois, USA)
     
-    URL: https://gitlab.com/godobject/bit_set.git
+    URI: https://gitlab.com/godobject/bit_set.git
 
 * [BitBucket][bitbucket] (located in California, USA)
     
-    URL: https://bitbucket.org/godobject/bit_set.git
+    URI: https://bitbucket.org/godobject/bit_set.git
 
 * [Pikacode][pikacode] (located in France)
 
-    URL: https://pikacode.com/godobject/bit_set.git
+    URI: https://pikacode.com/godobject/bit_set.git
 
    [github]:    https://github.com/godobject/bit_set/
    [gitlab]:    https://gitlab.com/godobject/bit_set/
@@ -360,16 +360,16 @@ several synchronized mirror repositories available:
    [pikacode]:  https://pikacode.com/godobject/bit_set/
 
 You can get the latest source code with the following command, while
-exchanging the placeholder for one of the mirror URLs:
+exchanging the placeholder for one of the mirror URIs:
 
-    git clone MIRROR_URL
+    git clone MIRROR_URI
 
 #### Tags and cryptographic verification
 
 The final commit before each released gem version will be marked by a tag
-named like the version with a prefixed lower-case "v", as required by Semantic
-Versioning. Every tag will be signed by my [OpenPGP public key][openpgp] which
-enables you to verify your copy of the code cryptographically.
+named like the version with a prefixed lower-case "v". Every tag will be signed
+by Alexander E. Fischer's [OpenPGP public key][openpgp] which enables you to
+verify your copy of the code cryptographically.
 
    [openpgp]: https://aef.name/crypto/aef-openpgp.asc
 
@@ -379,7 +379,7 @@ Add the key to your GnuPG keyring by the following command:
 
 This command will tell you if your code is of integrity and authentic:
 
-    git tag -v [TAG NAME]
+    git tag --verify [TAG NAME]
 
 #### Building gems
 
